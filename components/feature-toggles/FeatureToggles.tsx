@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { ToggleButton } from "./ToggleButton";
 import { data } from "./data";

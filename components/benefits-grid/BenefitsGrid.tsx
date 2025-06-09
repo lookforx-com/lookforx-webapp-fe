@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
 import { IntegrationsBlock } from "./IntegrationsBlock";
@@ -6,6 +7,8 @@ import { HighlighBlocks } from "./HighlighBlocks";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionSubheading } from "../shared/SectionSubheading";
 import { Button } from "../shared/Button";
+
+
 
 export const BenefitsGrid = () => {
   return (

@@ -1,9 +1,12 @@
+"use client";
 import React from "react";
 import { SiInstagram, SiX, SiYoutube } from "react-icons/si";
 import { IconType } from "react-icons";
 import Link from "next/link";
 import { LogoSmall } from "../navigation/Logo";
 import { NAV_LINKS } from "../navigation/constants";
+
+
 
 export const Footer = () => {
   return (

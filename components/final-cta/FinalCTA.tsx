@@ -1,7 +1,10 @@
+"use client";
 import React from "react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { LogoLarge } from "../navigation/Logo";
 import { Button } from "../shared/Button";
+
+
 
 export const FinalCTA = () => {
   return (

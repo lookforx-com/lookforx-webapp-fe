@@ -1,3 +1,5 @@
+"use client";
+
 import { CARD_WIDTH, MARGIN, PostType } from "./data";
 
 export const Post = ({ imgUrl, tag, title, description }: PostType) => {

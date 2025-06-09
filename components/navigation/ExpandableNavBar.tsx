@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactNode, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { FiMenu } from "react-icons/fi";

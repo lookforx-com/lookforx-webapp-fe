@@ -1,6 +1,9 @@
+"use client";
 import React from "react";
 import { MockupScreen } from "./MockupScreen";
 import { Copy } from "./Copy";
+
+
 
 export const Hero = () => {
   return (

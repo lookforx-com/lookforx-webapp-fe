@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { Button } from "../shared/Button";
