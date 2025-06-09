@@ -5,27 +5,20 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
 import Cookies from 'js-cookie';
-import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  Container,
-  VStack,
-  HStack,
-  Avatar,
-  Spinner,
-  Button,
-  useToast
-} from '@chakra-ui/react';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { FiRefreshCw, FiLogOut } from 'react-icons/fi';
+import { Button } from '@/components/ui/button/Button';
 
 export default function Dashboard() {
   const router = useRouter();
   const { user, isAuthenticated, loading, fetchUserData, logout } = useAuth();
   const { t } = useLanguage();
   const [welcomeMessage, setWelcomeMessage] = useState('');
-  const toast = useToast();
+  const [toast, setToast] = useState<{
+    title: string;
+    description: string;
+    status: 'success' | 'error' | 'info';
+    isVisible: boolean;
+  } | null>(null);
 
   // Token'ı alma fonksiyonu
   const getToken = () => {
@@ -37,6 +30,14 @@ export default function Dashboard() {
     
     // Cookie'de yoksa localStorage'dan kontrol et
     return localStorage.getItem('accessToken');
+  };
+
+  // Toast gösterme fonksiyonu
+  const showToast = (title: string, description: string, status: 'success' | 'error' | 'info') => {
+    setToast({ title, description, status, isVisible: true });
+    setTimeout(() => {
+      setToast(null);
+    }, 5000);
   };
 
   // Kullanıcı bilgilerini güncelle
@@ -71,19 +72,13 @@ export default function Dashboard() {
         console.error("Error fetching user data:", error);
         // Sadece kullanıcı bilgisi yoksa hata göster
         if (!user) {
-          toast({
-            title: t('common.error'),
-            description: t('dashboard.userDataError'),
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
+          showToast(t('common.error'), t('dashboard.userDataError'), 'error');
         }
       }
     };
     
     updateUserInfo();
-  }, [fetchUserData, router, toast, user, t]);
+  }, [fetchUserData, router, user, t]);
 
   // Hoş geldin mesajını güncelle
   useEffect(() => {
@@ -114,23 +109,11 @@ export default function Dashboard() {
   const handleRefreshUserData = async () => {
     try {
       await fetchUserData();
-      toast({
-        title: t('common.success'),
-        description: t('dashboard.userDataRefreshed'),
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
+      showToast(t('common.success'), t('dashboard.userDataRefreshed'), 'success');
       console.log("User data refreshed");
     } catch (error) {
       console.error("Error refreshing user data:", error);
-      toast({
-        title: t('common.error'),
-        description: t('dashboard.userDataRefreshError'),
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
+      showToast(t('common.error'), t('dashboard.userDataRefreshError'), 'error');
     }
   };
 
@@ -148,73 +131,135 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <Flex justify="center" align="center" height="100vh">
-        <Spinner size="xl" />
-        <Text ml={4}>{t('common.loading')}</Text>
-      </Flex>
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
+        <p className="ml-4">{t('common.loading')}</p>
+      </div>
     );
   }
 
   return (
-    <Box minH="100vh">
-      {/* Dil değiştirici */}
-      <Box position="absolute" top={4} right={4} zIndex={10}>
-        <LanguageSwitcher />
-      </Box>
+    <div className="min-h-screen bg-gray-50">
+      {/* Toast notification */}
+      {toast && toast.isVisible && (
+        <div className={`fixed top-4 right-4 z-50 p-4 rounded-md shadow-md ${
+          toast.status === 'success' ? 'bg-green-100 border border-green-200' : 
+          toast.status === 'error' ? 'bg-red-100 border border-red-200' : 
+          'bg-blue-100 border border-blue-200'
+        }`}>
+          <div className="flex">
+            <div className="flex-shrink-0">
+              {toast.status === 'success' && (
+                <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+              )}
+              {toast.status === 'error' && (
+                <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+              )}
+            </div>
+            <div className="ml-3">
+              <h3 className={`text-sm font-medium ${
+                toast.status === 'success' ? 'text-green-800' : 
+                toast.status === 'error' ? 'text-red-800' : 
+                'text-blue-800'
+              }`}>
+                {toast.title}
+              </h3>
+              <div className={`mt-1 text-sm ${
+                toast.status === 'success' ? 'text-green-700' : 
+                toast.status === 'error' ? 'text-red-700' : 
+                'text-blue-700'
+              }`}>
+                {toast.description}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       
-      <Container maxW="container.xl" py={8}>
-        <VStack spacing={8} align="stretch">
-          <Flex justify="space-between" align="center">
-            <Box>
-              <Heading size="lg">{t('dashboard.title')}</Heading>
-              <Text color="gray.600">{welcomeMessage}</Text>
-              {/* ID bilgisini kaldırdık */}
-            </Box>
-            <HStack>
-              <Avatar 
-                size="md" 
-                name={user?.name || t('dashboard.user')} 
-                src={user?.imageUrl} 
-              />
-              <Box>
-                <Text fontWeight="bold">
-                  {user?.name ? user.name.replace(/\+/g, ' ') : t('dashboard.anonymousUser')}
-                </Text>
-                <Text fontSize="sm" color="gray.600">{user?.email || t('dashboard.noEmail')}</Text>
-              </Box>
-            </HStack>
-          </Flex>
-          
-          <Flex justify="space-between" mt={4}>
-            <Button 
-              colorScheme="blue" 
-              size="sm" 
-              onClick={handleRefreshUserData}
-            >
-              {t('dashboard.refreshUserData')}
-            </Button>
+      <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8 pt-20">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900">{t('dashboard.title')}</h1>
+                  <p className="text-gray-600">{welcomeMessage}</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <div className="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                    {user?.imageUrl ? (
+                      <img 
+                        src={user.imageUrl} 
+                        alt={user.name || t('dashboard.user')}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-xl font-bold text-gray-600">
+                        {user?.name ? user.name.charAt(0).toUpperCase() : '?'}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-bold text-gray-900">
+                      {user?.name ? user.name.replace(/\+/g, ' ') : t('dashboard.anonymousUser')}
+                    </p>
+                    <p className="text-sm text-gray-600">{user?.email || t('dashboard.noEmail')}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row justify-between mt-6 gap-3">
+                <Button 
+                  variant="primary"
+                  size="sm"
+                  onClick={handleRefreshUserData}
+                  className="flex items-center justify-center space-x-2"
+                >
+                  <FiRefreshCw className="h-4 w-4" />
+                  <span>{t('dashboard.refreshUserData')}</span>
+                </Button>
+                
+                <Button 
+                  variant="destructive"
+                  size="sm"
+                  onClick={logout}
+                  className="flex items-center justify-center space-x-2"
+                >
+                  <FiLogOut className="h-4 w-4" />
+                  <span>{t('common.logout')}</span>
+                </Button>
+              </div>
+            </div>
             
-            <Button 
-              colorScheme="red" 
-              size="sm" 
-              onClick={logout}
-            >
-              {t('common.logout')}
-            </Button>
-          </Flex>
-          
-          {/* Debug bilgileri */}
-          <Box mt={8} p={4} bg="gray.50" borderRadius="md">
-            <Heading size="sm" mb={2}>{t('dashboard.debugInfo')}</Heading>
-            <Text fontSize="xs">{t('dashboard.isAuthenticated')}: {isAuthenticated ? 'true' : 'false'}</Text>
-            <Text fontSize="xs">{t('dashboard.userObject')}: {user ? JSON.stringify(user, null, 2) : 'null'}</Text>
-            <Text fontSize="xs">{t('dashboard.cookieToken')}: {Cookies.get('accessToken') ? t('dashboard.exists') : t('dashboard.notExists')}</Text>
-            <Text fontSize="xs">{t('dashboard.localStorageToken')}: {typeof window !== 'undefined' && localStorage.getItem('accessToken') ? t('dashboard.exists') : t('dashboard.notExists')}</Text>
-            <Text fontSize="xs">{t('dashboard.tokenContent')}: {getTokenInfo()}</Text>
-          </Box>
-        </VStack>
-      </Container>
-    </Box>
+            {/* Debug bilgileri */}
+            <div className="p-6 bg-gray-50">
+              <h3 className="text-sm font-semibold mb-2">{t('dashboard.debugInfo')}</h3>
+              <div className="space-y-2 text-xs">
+                <p className="mb-1">{t('dashboard.isAuthenticated')}: {isAuthenticated ? 'true' : 'false'}</p>
+                <div className="p-2 bg-gray-100 rounded overflow-auto">
+                  <p className="mb-1">{t('dashboard.userObject')}:</p>
+                  <pre className="whitespace-pre-wrap break-all">
+                    {user ? JSON.stringify(user, null, 2) : 'null'}
+                  </pre>
+                </div>
+                <p className="mb-1">{t('dashboard.cookieToken')}: {Cookies.get('accessToken') ? t('dashboard.exists') : t('dashboard.notExists')}</p>
+                <p className="mb-1">{t('dashboard.localStorageToken')}: {typeof window !== 'undefined' && localStorage.getItem('accessToken') ? t('dashboard.exists') : t('dashboard.notExists')}</p>
+                <div className="mt-2">
+                  <p className="text-xs font-semibold mb-1">{t('dashboard.tokenContent')}:</p>
+                  <pre className="text-xs bg-gray-100 p-2 rounded overflow-auto max-h-40 whitespace-pre-wrap break-all">
+                    {getTokenInfo()}
+                  </pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

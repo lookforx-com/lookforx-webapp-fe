@@ -1,18 +1,17 @@
 'use client';
 
-import { ChakraProvider } from '@chakra-ui/react';
-import { AuthProvider } from '@/context/AuthContext';
+import { ThemeProvider } from 'next-themes';
 import { LanguageProvider } from '@/context/LanguageContext';
-import theme from '@/theme';
+import { AuthProvider } from '@/context/AuthContext';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ChakraProvider theme={theme}>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <LanguageProvider>
         <AuthProvider>
           {children}
         </AuthProvider>
       </LanguageProvider>
-    </ChakraProvider>
+    </ThemeProvider>
   );
 }

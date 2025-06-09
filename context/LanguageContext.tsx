@@ -114,5 +114,11 @@ export function useLanguage() {
   if (context === undefined) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
-  return context;
+  return {
+    language: context.locale, // Geriye dönük uyumluluk için
+    locale: context.locale,
+    translations: context.translations,
+    changeLanguage: context.changeLanguage,
+    t: context.t
+  };
 }

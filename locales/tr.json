@@ -3,6 +3,7 @@
     "login": "Giriş Yap",
     "signup": "Kayıt Ol",
     "email": "E-posta",
+    "emailPlaceholder": "E-posta adresinizi girin",
     "password": "Şifre",
     "passwordPlaceholder": "Şifrenizi girin",
     "forgotPassword": "Şifremi Unuttum",
@@ -23,14 +24,20 @@
     "logout": "Çıkış Yap",
     "unexpectedError": "Beklenmeyen bir hata oluştu",
     "fullName": "Ad Soyad",
-    "fullNamePlaceholder": "Adınızı ve soyadınızı girin"
+    "fullNamePlaceholder": "Adınızı ve soyadınızı girin",
+    "dashboard": "Kontrol Paneli",
+    "profile": "Profil",
+    "settings": "Ayarlar"
   },
   "login": {
-    "title": "LookforX Yönetici",
-    "subtitle": "LookforX uygulamasının tüm özelliklerine erişmek için giriş yapın",
+    "title": "LookforX",
+    "subtitle": "LookforX'in tüm özelliklerine erişmek için giriş yapın",
     "loginFailed": "Giriş başarısız. Lütfen tekrar deneyin.",
     "googleLoginFailed": "Google ile bağlantı kurulamadı. Lütfen tekrar deneyin.",
-    "loginSuccessful": "Giriş başarılı"
+    "loginSuccessful": "Giriş başarılı",
+    "forgotPassword": "Şifrenizi mi unuttunuz?",
+    "noAccount": "Hesabınız yok mu?",
+    "createAccount": "Hesap oluşturun"
   },
   "signup": {
     "title": "Hesap Oluştur",
@@ -41,7 +48,9 @@
     "lowercase": "En az bir küçük harf",
     "number": "En az bir rakam",
     "specialChar": "En az bir özel karakter",
-    "weakPassword": "Şifre gereksinimleri karşılamıyor"
+    "weakPassword": "Şifre gereksinimleri karşılamıyor",
+    "haveAccount": "Zaten hesabınız var mı?",
+    "signIn": "Giriş yapın"
   },
   "dashboard": {
     "title": "Kullanıcı Paneli",
@@ -68,7 +77,7 @@
     "tokenDecodeError": "Token çözme hatası"
   },
   "branding": {
-    "title": "LookforX",
+    "title": "lookforx.com",
     "loginDescription": "Ürün ve Hizmet talep etmek ve teklif vermek için giriş yapın",
     "signupDescription": "Ürün ve Hizmet talep etmek ve teklif vermek için platformumuza katılın"
   }

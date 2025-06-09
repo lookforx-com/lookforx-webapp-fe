@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     domains: ['storage.googleapis.com', 'lh3.googleusercontent.com'],
+    unoptimized: true, // Statik dışa aktarım için gerekli
   },
   async redirects() {
     return [
@@ -18,6 +19,10 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Statik dosyaların önbelleğini iyileştir
+  staticPageGenerationTimeout: 120,
+  poweredByHeader: false,
+  compress: true,
 };
 
 export default nextConfig;

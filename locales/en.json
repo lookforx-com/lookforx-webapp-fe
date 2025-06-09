@@ -3,6 +3,7 @@
     "login": "Login",
     "signup": "Sign Up",
     "email": "Email",
+    "emailPlaceholder": "Enter your email",
     "password": "Password",
     "passwordPlaceholder": "Enter your password",
     "forgotPassword": "Forgot Password",
@@ -23,14 +24,20 @@
     "logout": "Logout",
     "unexpectedError": "An unexpected error occurred",
     "fullName": "Full Name",
-    "fullNamePlaceholder": "Enter your full name"
+    "fullNamePlaceholder": "Enter your full name",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings"
   },
   "login": {
     "title": "LookforX",
     "subtitle": "Sign in to access all features of LookforX",
     "loginFailed": "Login failed. Please try again.",
     "googleLoginFailed": "Failed to connect with Google. Please try again.",
-    "loginSuccessful": "Login successful"
+    "loginSuccessful": "Login successful",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create an account"
   },
   "signup": {
     "title": "Create Account",
@@ -41,7 +48,9 @@
     "lowercase": "At least one lowercase letter",
     "number": "At least one number",
     "specialChar": "At least one special character",
-    "weakPassword": "Password does not meet the requirements"
+    "weakPassword": "Password does not meet the requirements",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign in"
   },
   "dashboard": {
     "title": "User Panel",
@@ -68,7 +77,7 @@
     "tokenDecodeError": "Token decode error"
   },
   "branding": {
-    "title": "LookforX",
+    "title": "lookforx.com",
     "loginDescription": "Sign in to request products and services and make offers",
     "signupDescription": "Join our platform to request products and services and make offers"
   }
