@@ -80,5 +80,12 @@
     "title": "lookforx.com",
     "loginDescription": "Ürün ve Hizmet talep etmek ve teklif vermek için giriş yapın",
     "signupDescription": "Ürün ve Hizmet talep etmek ve teklif vermek için platformumuza katılın"
+  },
+  "footer": {
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Koşulları",
+    "rights": "Tüm hakları saklıdır."
   }
 }

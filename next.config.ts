@@ -7,7 +7,11 @@ const nextConfig: NextConfig = {
     defaultLocale: 'tr',
   },
   images: {
-    domains: ['storage.googleapis.com', 'lh3.googleusercontent.com'],
+    domains: [
+      'storage.googleapis.com', 
+      'lh3.googleusercontent.com',
+      'images.unsplash.com' // Unsplash görsellerine izin ver
+    ],
     unoptimized: true, // Statik dışa aktarım için gerekli
   },
   async redirects() {

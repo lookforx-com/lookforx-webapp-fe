@@ -80,5 +80,12 @@
     "title": "lookforx.com",
     "loginDescription": "Sign in to request products and services and make offers",
     "signupDescription": "Join our platform to request products and services and make offers"
+  },
+  "footer": {
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights": "All rights reserved."
   }
 }

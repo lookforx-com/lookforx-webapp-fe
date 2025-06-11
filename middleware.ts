@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
   console.log('Middleware checking path:', path, 'Token exists:', !!token);
 
   // Public routes that don't require authentication
-  const publicRoutes = ['/login', '/signup', '/auth/callback/google'];
+  const publicRoutes = ['/','/login', '/signup', '/auth/callback/google'];
   
   // Dashboard sayfasına token ile erişime izin ver
   if (path === '/dashboard' && new URL(request.url).searchParams.get('token')) {

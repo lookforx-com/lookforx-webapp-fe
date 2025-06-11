@@ -87,7 +87,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     // Replace parameters if provided
     if (params) {
       return Object.entries(params).reduce(
-        (str, [param, val]) => str.replace(new RegExp(`{${param}}`, 'g'), val),
+        (str, [param, val]) => {
+          // Regex özel karakterlerini kaçır
+          const escapedParam = param.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          return str.replace(new RegExp(`\\{${escapedParam}\\}`, 'g'), val);
+        },
         value
       );
     }
