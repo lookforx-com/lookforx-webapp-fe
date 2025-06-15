@@ -41,7 +41,7 @@ export default function Footer() {
               <span className="ml-2 text-lg font-bold text-gray-800 dark:text-white">LookforX</span>
             </Link>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              © {t('footer.copyright', { year: new Date().getFullYear().toString() })}. {t('footer.rights')}
+              © {new Date().getFullYear()} LookforX. {t('footer.rights')}
             </p>
           </div>
           
